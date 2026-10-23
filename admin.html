@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Comunidad Científica de Chile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+        }
+        header {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .admin-nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 15px;
+        }
+        .admin-nav-tabs button {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .admin-nav-tabs button.active {
+            background: #1f6feb;
+            color: white;
+            border-color: #1f6feb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #30363d;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #21262d;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: rgba(255,255,255,0.02);
+        }
+        .btn-action {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .btn-success { background: #238636; color: white; }
+        .btn-success:hover { background: #2ea043; }
+        .btn-danger { background: #da3633; color: white; }
+        .btn-danger:hover { background: #f85149; }
+        .btn-warning { background: #d29922; color: #0d1117; }
+        .btn-info { background: #1f6feb; color: white; }
+        .btn-info:hover { background: #388bfd; }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .top-bar h3 {
+            margin: 0;
+            color: #ffffff;
+        }
+        .btn-refresh {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        /* Estilos para el Modal de Descripción */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 25px;
+            border-radius: 10px;
+            width: 450px;
+            max-width: 90%;
+            color: #c9d1d9;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+        }
+        .modal-content h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .modal-close {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+        }
+        .modal-close:hover {
+            background: #30363d;
+        }
+    </style>
+  <script src="api-config.js"></script>
+</head>
+<body>
+
+    <header>
+        <div style="font-weight: bold; color: white; font-size: 16px;">⚡ Panel de Control Admin — CCCh</div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span id="admin-nombre" style="color: #8b949e; font-size: 14px;"></span>
+            <a href="index.html" style="color: #58a6ff; text-decoration: none; font-size: 14px;">Ver Sitio Web</a>
+            <button onclick="cerrarSesion()" style="background: #da3633; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">Salir</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="admin-container">
+            <div class="admin-nav-tabs">
+                <button id="tab-solicitudes" class="active" onclick="mostrarSeccion('solicitudes')">Solicitudes de Registro</button>
+                <button id="tab-usuarios" onclick="mostrarSeccion('usuarios')">Gestión de Usuarios y Roles</button>
+            </div>
+
+            <!-- SECCIÓN SOLICITUDES -->
+            <div id="seccion-solicitudes">
+                <div class="top-bar">
+                    <h3>Solicitudes pendientes de aprobación</h3>
+                    <button class="btn-refresh" onclick="cargarSolicitudes()">Actualizar</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Área</th>
+                            <th>Región</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-solicitudes"></tbody>
+                </table>
+            </div>
+
+            <!-- SECCIÓN USUARIOS -->
+            <div id="seccion-usuarios" style="display: none;">
+                <div class="top-bar">
+                    <h3>Usuarios Registrados en el Sistema</h3>
+                    <button class="btn-refresh" onclick="cargarUsuarios()">Actualizar</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol Actual</th>
+                            <th>Área</th>
+                            <th>Acciones de Administrador</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-usuarios"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- VENTANA MODAL PARA VER DESCRIPCIÓN -->
+    <div id="modal-descripcion" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="cerrarModal()">X</button>
+            <h3 id="modal-nombre-postulante">Detalles del Postulante</h3>
+            <p style="font-size: 13px; color: #8b949e; margin-bottom: 5px;"><b>Correo:</b> <span id="modal-correo"></span></p>
+            <p style="font-size: 13px; color: #8b949e; margin-bottom: 15px;"><b>Área / Región:</b> <span id="modal-area-region"></span></p>
+            <hr style="border: 0; border-top: 1px solid #30363d; margin-bottom: 15px;">
+            <p style="font-size: 13px; color: #fff; margin-bottom: 5px;"><b>Descripción / Sobre sí mismo:</b></p>
+            <div id="modal-texto-descripcion" style="background: #0d1117; padding: 12px; border-radius: 6px; border: 1px solid #30363d; font-size: 14px; color: #c9d1d9; max-height: 150px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const usuarioGuardado = localStorage.getItem('usuario');
+            if (!usuarioGuardado) {
+                alert('Acceso no autorizado.');
+                window.location.href = 'login.html';
+                return;
+            }
+            const usuario = JSON.parse(usuarioGuardado);
+            if (usuario.rol !== 'admin') {
+                alert('Se requieren permisos de administrador.');
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('admin-nombre').textContent = `Administrador: ${usuario.nombre}`;
+            cargarSolicitudes();
+            cargarUsuarios();
+        });
+
+        function mostrarSeccion(seccion) {
+            if (seccion === 'solicitudes') {
+                document.getElementById('seccion-solicitudes').style.display = 'block';
+                document.getElementById('seccion-usuarios').style.display = 'none';
+                document.getElementById('tab-solicitudes').classList.add('active');
+                document.getElementById('tab-usuarios').classList.remove('active');
+            } else {
+                document.getElementById('seccion-solicitudes').style.display = 'none';
+                document.getElementById('seccion-usuarios').style.display = 'block';
+                document.getElementById('tab-usuarios').classList.add('active');
+                document.getElementById('tab-solicitudes').classList.remove('active');
+            }
+        }
+
+        async function cargarSolicitudes() {
+            const res = await fetch(apiUrl('/api/usuarios'));
+            const data = await res.json();
+            const tbody = document.getElementById('tabla-solicitudes');
+            tbody.innerHTML = data.length === 0 ? `<tr><td colspan="7" style="text-align:center; color:#8b949e;">No hay solicitudes pendientes.</td></tr>` : '';
+            
+            data.forEach(s => {
+                // Guardamos los datos de forma segura para pasarlos al modal
+                const descripcionSegura = (s.descripcion || 'Sin descripción ingresada.').replace(/'/g, "\\'");
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${s.id}</td>
+                        <td><b style="color: #fff;">${s.nombre}</b></td>
+                        <td>${s.correo}</td>
+                        <td>${s.area || '-'}</td>
+                        <td>${s.region || '-'}</td>
+                        <td>${new Date(s.fecha).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn-action btn-info" onclick="verDetalle('${s.nombre}', '${s.correo}', '${s.area}', '${s.region}', '${descripcionSegura}')">Ver más</button>
+                            <button class="btn-action btn-success" onclick="aprobarSolicitud(${s.id})" style="margin-left: 2px;">Aprobar</button>
+                            <button class="btn-action btn-danger" onclick="eliminarSolicitud(${s.id})" style="margin-left: 2px;">Rechazar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function verDetalle(nombre, correo, area, region, descripcion) {
+            document.getElementById('modal-nombre-postulante').textContent = nombre;
+            document.getElementById('modal-correo').textContent = correo;
+            document.getElementById('modal-area-region').textContent = `${area || 'Sin área'} — ${region || 'Sin región'}`;
+            document.getElementById('modal-texto-descripcion').textContent = descripcion;
+            document.getElementById('modal-descripcion').style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-descripcion').style.display = 'none';
+        }
+
+        async function aprobarSolicitud(id) {
+            if (confirm('¿Deseas aprobar esta solicitud? Se creará su cuenta con la contraseña temporal: 123456')) {
+                const res = await fetch(apiUrl(`/api/admin/aprobar/${id}`), { method: 'POST' });
+                const data = await res.json();
+                alert(data.mensaje || data.error);
+                cargarSolicitudes();
+                cargarUsuarios();
+            }
+        }
+
+        async function eliminarSolicitud(id) {
+            if (confirm('¿Seguro que deseas eliminar esta solicitud?')) {
+                await fetch(apiUrl(`/api/admin/solicitudes/${id}`), { method: 'DELETE' });
+                cargarSolicitudes();
+            }
+        }
+
+        async function cargarUsuarios() {
+            const res = await fetch(apiUrl('/api/admin/usuarios-lista'));
+            const data = await res.json();
+            const tbody = document.getElementById('tabla-usuarios');
+            tbody.innerHTML = data.length === 0 ? `<tr><td colspan="6" style="text-align:center; color:#8b949e;">No hay usuarios registrados.</td></tr>` : '';
+
+            data.forEach(u => {
+                const esAdmin = u.rol === 'admin';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${u.id}</td>
+                        <td><b style="color: #fff;">${u.nombre}</b></td>
+                        <td>${u.correo}</td>
+                        <td><span style="padding:4px 8px; border-radius:4px; background:${esAdmin ? 'rgba(35, 134, 54, 0.2)' : 'rgba(31, 111, 235, 0.2)'}; color:${esAdmin ? '#3fb950' : '#58a6ff'}; border: 1px solid ${esAdmin ? '#238636' : '#1f6feb'};">${u.rol}</span></td>
+                        <td>${u.area || '-'}</td>
+                        <td>
+                            <button class="btn-action btn-warning" onclick="cambiarRol(${u.id}, '${esAdmin ? 'miembro' : 'admin'}')">${esAdmin ? 'Quitar Admin' : 'Hacer Admin'}</button>
+                            <button class="btn-action btn-danger" onclick="eliminarUsuario(${u.id})" style="margin-left: 5px;">Eliminar</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function cambiarRol(id, nuevoRol) {
+            if (confirm(`¿Cambiar el rol de este usuario a '${nuevoRol}'?`)) {
+                await fetch(apiUrl(`/api/admin/usuarios/rol/${id}`), {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rol: nuevoRol })
+                });
+                cargarUsuarios();
+            }
+        }
+
+        async function eliminarUsuario(id) {
+            if (confirm('¿Estás seguro de eliminar este usuario del sistema?')) {
+                await fetch(apiUrl(`/api/admin/usuarios/${id}`), { method: 'DELETE' });
+                cargarUsuarios();
+            }
+        }
+
+        function cerrarSesion() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

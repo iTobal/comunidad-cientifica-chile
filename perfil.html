@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - Comunidad Científica de Chile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background: #21262d;
+            border: 2px solid #30363d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #58a6ff;
+            margin: 0 auto 20px auto;
+            font-weight: bold;
+        }
+        .profile-card h2 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+            font-size: 22px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .badge-admin { background: rgba(35, 134, 54, 0.2); color: #3fb950; border: 1px solid #238636; }
+        .badge-miembro { background: rgba(31, 111, 235, 0.2); color: #58a6ff; border: 1px solid #1f6feb; }
+        .profile-info {
+            text-align: left;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .profile-info span {
+            color: #8b949e;
+        }
+        .back-link {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+  <script src="api-config.js"></script>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div id="avatar-inicial" class="avatar-placeholder">C</div>
+        <h2 id="perfi-nombre">Cargando...</h2>
+        <div id="perfil-rol-badge" class="badge badge-miembro">Miembro</div>
+
+        <div class="profile-info">
+            <p><span>Correo:</span> <strong id="perfil-correo" style="color: #fff;">-</strong></p>
+            <p><span>Área de Interés:</span> <strong id="perfil-area" style="color: #fff;">-</strong></p>
+            <p><span>Región:</span> <strong id="perfil-region" style="color: #fff;">-</strong></p>
+            <p><span>Miembro desde:</span> <strong id="perfil-fecha" style="color: #fff;">-</strong></p>
+        </div>
+
+        <a href="index.html" class="back-link">← Volver al sitio principal</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            if (!id) {
+                alert('No se especificó un usuario.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const res = await fetch(apiUrl('/api/admin/usuarios-lista'));
+                const usuarios = await res.json();
+                const usuario = usuarios.find(u => u.id == id);
+
+                if (!usuario) {
+                    alert('Usuario no encontrado.');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                document.getElementById('avatar-inicial').textContent = usuario.nombre.charAt(0).toUpperCase();
+                document.getElementById('perfi-nombre').textContent = usuario.nombre;
+                document.getElementById('perfil-correo').textContent = usuario.correo;
+                document.getElementById('perfil-area').textContent = usuario.area || 'No especificada';
+                document.getElementById('perfil-region').textContent = usuario.region || 'No especificada';
+                document.getElementById('perfil-fecha').textContent = new Date(usuario.fecha_registro).toLocaleDateString();
+
+                const badge = document.getElementById('perfil-rol-badge');
+                if (usuario.rol === 'admin') {
+                    badge.className = 'badge badge-admin';
+                    badge.textContent = 'Administrador';
+                } else {
+                    badge.className = 'badge badge-miembro';
+                    badge.textContent = 'Miembro de la Red';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error al cargar los datos del perfil.');
+            }
+        });
+    </script>
+</body>
+</html>

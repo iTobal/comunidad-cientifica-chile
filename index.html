@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Comunidad Científica de Chile — conectando ciencia, talento y oportunidades.">
+  <title>Comunidad Científica de Chile</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="api-config.js"></script>
+</head>
+<body>
+
+  <!-- HEADER / NAVEGACIÓN -->
+  <header>
+    <a class="brand" href="#inicio"><span>CCCh</span></a>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#nosotros">Quiénes Somos</a>
+      <a href="#empleos">Empleos</a>
+      <a href="#foro">Foro</a>
+      <a href="#vitrina">Vitrina</a>
+      <a href="#cientificos">Científicos/as</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://www.instagram.com/comunidadcientificachile/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <!-- Enlace dinámico para Admin (Oculto por defecto) -->
+      <a id="nav-admin" href="admin.html" style="display: none; color: #ffc107; font-weight: bold;">Panel Admin</a>
+    </nav>
+    
+    <!-- Zona de Usuario / Únete -->
+    <div id="auth-section">
+      <a class="join" href="login.html" id="btn-login-link">Iniciar Sesión</a>
+      <div id="user-logged-info" style="display: none; align-items: center; gap: 10px;">
+        <span id="user-display-name" style="color: white; font-weight: bold; font-size: 14px;"></span>
+        <button onclick="cerrarSesion()" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">COMUNIDAD CIENTÍFICA DE CHILE</p>
+        <h1>Una comunidad para la <em>ciencia en Chile</em></h1>
+        <p>Un espacio para conectar, compartir y colaborar.</p>
+        <div class="actions">
+          <a class="btn" href="#registro">Únete a la red</a>
+          <a class="ghost" href="#nosotros">Conoce más →</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div><b>+500</b><span>miembros</span></div>
+        <div><b>+20</b><span>áreas científicas</span></div>
+        <div><b>+100</b><span>conexiones</span></div>
+        <div><b>15</b><span>regiones</span></div>
+      </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section id="nosotros">
+      <p class="eyebrow">QUIÉNES SOMOS</p>
+      <h2>Una comunidad que conecta conocimiento</h2>
+      <p class="lead">Reunimos investigadores, profesionales, estudiantes y organizaciones para fortalecer la colaboración científica en Chile.</p>
+      <div class="cards">
+        <article>
+          <i>◉</i>
+          <h3>Conectar</h3>
+          <p>Facilitamos redes entre personas, instituciones y disciplinas.</p>
+        </article>
+        <article>
+          <i>▣</i>
+          <h3>Visibilizar</h3>
+          <p>Destacamos proyectos, perfiles y capacidades de la comunidad.</p>
+        </article>
+        <article>
+          <i>⌁</i>
+          <h3>Colaborar</h3>
+          <p>Promovemos nuevas alianzas, oportunidades e intercambio de conocimiento.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CIENTÍFICOS DESTACADOS -->
+    <section id="cientificos">
+      <p class="eyebrow">NUESTRA COMUNIDAD</p>
+      <h2>Científicos/as Destacados/as</h2>
+      <div class="empty">
+        <span>☆</span>
+        <p>Próximamente nuevos perfiles destacados de nuestra comunidad.</p>
+      </div>
+    </section>
+
+    <!-- EMPLEOS -->
+    <section id="empleos">
+      <p class="eyebrow">OPORTUNIDADES</p>
+      <h2>Bolsa de Trabajo</h2>
+      <p class="lead">Explora oportunidades para profesionales, investigadores y estudiantes.</p>
+      <div class="toolbar">
+        <input id="jobSearch" placeholder="Buscar oportunidades...">
+        <select id="jobType">
+          <option>Todos los tipos</option>
+          <option>Investigación</option>
+          <option>Académico</option>
+          <option>Industria</option>
+        </select>
+      </div>
+      <div class="empty">
+        <span>▢</span>
+        <p>No hay ofertas publicadas en este momento.</p>
+      </div>
+    </section>
+
+    <!-- VITRINA -->
+    <section id="vitrina">
+      <p class="eyebrow">PROYECTOS Y RECURSOS</p>
+      <h2>Vitrina Visual</h2>
+      <p class="lead">Un espacio para compartir iniciativas, publicaciones, proyectos y recursos de la comunidad.</p>
+      <div class="tabs">
+        <button>Todo</button>
+        <button>Proyectos</button>
+        <button>Publicaciones</button>
+        <button>Eventos</button>
+      </div>
+      <div class="empty">
+        <span>▧</span>
+        <p>La vitrina está lista para recibir nuevos contenidos.</p>
+      </div>
+    </section>
+
+    <!-- FORO -->
+    <section id="foro">
+      <p class="eyebrow">CONVERSACIÓN ABIERTA</p>
+      <h2>Foro de la Comunidad</h2>
+      <div class="forum">
+        <aside>
+          <button>General</button>
+          <button>Investigación</button>
+          <button>Oportunidades</button>
+          <button>Colaboración</button>
+          <button>Eventos</button>
+        </aside>
+        <div class="forum-main">
+          <div class="newtopic">
+            <input placeholder="¿Qué quieres compartir con la comunidad?">
+            <button class="btn">Publicar</button>
+          </div>
+          <div class="empty">
+            <span>☷</span>
+            <p>Aún no hay conversaciones. Sé la primera persona en iniciar un tema.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <p class="eyebrow">RESOLVEMOS TUS DUDAS</p>
+      <h2>Preguntas Frecuentes</h2>
+      <div class="faq">
+        <details>
+          <summary>¿Qué es la Comunidad Científica de Chile?</summary>
+          <p>Es un espacio digital de encuentro, visibilidad y colaboración para la comunidad científica.</p>
+        </details>
+        <details>
+          <summary>¿Quién puede unirse a la comunidad?</summary>
+          <p>Investigadores, profesionales, estudiantes y personas vinculadas al ecosistema científico.</p>
+        </details>
+        <details>
+          <summary>¿Cómo puedo publicar una oferta de trabajo?</summary>
+          <p>En esta versión estática la sección queda preparada para incorporar publicaciones posteriormente.</p>
+        </details>
+        <details>
+          <summary>¿Cómo puedo publicar un proyecto en la vitrina?</summary>
+          <p>La vitrina está preparada visualmente para incorporar proyectos y recursos.</p>
+        </details>
+        <details>
+          <summary>¿Tiene algún costo pertenecer a la comunidad?</summary>
+          <p>Consulta las condiciones vigentes directamente con la organización.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FORMULARIO REGISTRO -->
+    <section id="registro">
+      <p class="eyebrow">SÉ PARTE DE LA RED</p>
+      <h2>Únete a la comunidad</h2>
+      <form id="joinForm" onsubmit="enviarSolicitud(event)">
+        <label>
+          Nombre completo
+          <input name="nombre" id="nombre" required>
+        </label>
+        <label>
+          Correo electrónico
+          <input name="correo" id="correo" type="email" required>
+        </label>
+        <label>
+          Área / disciplina
+          <input name="area" id="area">
+        </label>
+        <label>
+          Región
+          <select name="region" id="region">
+            <option value="">Selecciona una región</option>
+            <option value="Metropolitana">Metropolitana</option>
+            <option value="Valparaíso">Valparaíso</option>
+            <option value="Biobío">Biobío</option>
+            <option value="Otra">Otra</option>
+          </select>
+        </label>
+        <label class="wide">
+          Cuéntanos brevemente sobre ti
+          <textarea name="descripcion" id="descripcion" rows="4"></textarea>
+        </label>
+        <button class="btn wide" type="submit">Enviar solicitud</button>
+      </form>
+    </section>
+
+    <!-- FORMULARIO CONTACTO -->
+    <section id="contacto">
+      <p class="eyebrow">CONTACTO</p>
+      <h2>Conversemos</h2>
+      <form name="contacto" method="POST">
+        <label>
+          Nombre
+          <input name="nombre" required>
+        </label>
+        <label>
+          Email
+          <input name="email" type="email" required>
+        </label>
+        <label class="wide">
+          Mensaje
+          <textarea name="mensaje" rows="5" required></textarea>
+        </label>
+        <button class="btn wide" type="submit">Enviar mensaje</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <b>Comunidad Científica de Chile</b>
+      <p>Conectando ciencia, personas y futuro.</p>
+    </div>
+    <div>
+      <b>Navegación</b>
+      <a href="#nosotros">Quiénes Somos</a>
+      <a href="#empleos">Empleos</a>
+      <a href="#foro">Foro</a>
+    </div>
+    <div>
+      <b>Comunidad</b>
+      <a href="#vitrina">Vitrina</a>
+      <a href="#cientificos">Científicos/as</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div>
+      <b>Síguenos e intégrate</b>
+      <a class="outline" href="https://www.instagram.com/comunidadcientificachile/" target="_blank" rel="noopener noreferrer">Instagram oficial</a>
+      <a class="outline" href="#registro">Únete a la comunidad</a>
+    </div>
+    <small>© 2026 Comunidad Científica de Chile</small>
+  </footer>
+
+  <!-- Script de envío de solicitud conectado al backend -->
+  <script>
+    async function enviarSolicitud(e) {
+        e.preventDefault();
+        
+        const nombre = document.getElementById('nombre').value;
+        const correo = document.getElementById('correo').value;
+        const area = document.getElementById('area').value;
+        const region = document.getElementById('region').value;
+        const descripcion = document.getElementById('descripcion').value;
+
+        if (!nombre || !correo) {
+            alert('Por favor, ingresa tu Nombre completo y Correo electrónico.');
+            return;
+        }
+
+        try {
+            const res = await fetch(apiUrl('/api/registro'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, correo, area, region, descripcion })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert(data.mensaje || '¡Solicitud enviada con éxito!');
+                e.target.reset();
+            } else {
+                alert(data.error || 'Hubo un error al enviar la solicitud.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error de conexión con el servidor.');
+        }
+    }
+  </script>
+
+  <!-- Script para verificar si hay sesión iniciada en el navegador -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioGuardado = localStorage.getItem('usuario');
+      if (usuarioGuardado) {
+        const usuario = JSON.parse(usuarioGuardado);
+        
+        // Ocultar botón de login y mostrar nombre del usuario
+        document.getElementById('btn-login-link').style.display = 'none';
+        const infoDiv = document.getElementById('user-logged-info');
+        infoDiv.style.display = 'flex';
+        document.getElementById('user-display-name').textContent = `Hola, ${usuario.nombre} (${usuario.rol})`;
+
+        // Si es admin, mostrar el enlace al panel de administración en la barra de navegación
+        if (usuario.rol === 'admin') {
+          document.getElementById('nav-admin').style.display = 'inline-block';
+        }
+      }
+    });
+
+    function cerrarSesion() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('usuario');
+      alert('Has cerrado sesión correctamente.');
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>

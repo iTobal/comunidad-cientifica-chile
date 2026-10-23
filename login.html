@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Comunidad Científica de Chile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 35px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        h2 {
+            color: #fff;
+            margin-top: 0;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #c9d1d9;
+            display: block;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 11px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        input:focus {
+            border-color: #1f6feb;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            background: #1f6feb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #388bfd;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #58a6ff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+  <script src="api-config.js"></script>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>Iniciar Sesión - CCCh</h2>
+        
+        <form id="form-login">
+            <label>Correo Electrónico</label>
+            <input type="email" id="correo" required placeholder="ejemplo@correo.com">
+            
+            <label>Contraseña</label>
+            <input type="password" id="password" required placeholder="Tu contraseña">
+            
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <a href="index.html" class="back-link">← Volver al inicio</a>
+    </div>
+
+    <script>
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const correo = document.getElementById('correo').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const respuesta = await fetch(apiUrl('/api/auth/login'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ correo, password })
+                });
+
+                const data = await respuesta.json();
+
+                if (respuesta.ok) {
+                    // Verificamos si el servidor indica que debe cambiar su contraseña temporal
+                    if (data.debeCambiarPassword) {
+                        localStorage.setItem('correoCambio', correo);
+                        alert('Es tu primer ingreso con contraseña temporal. Por seguridad, debes cambiarla.');
+                        window.location.href = 'cambiar-password.html';
+                    } else {
+                        // Guardamos sesión normal
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                        
+                        alert(data.mensaje);
+                        
+                        // Redirigir según rol si deseas, o al index
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    alert(data.error || 'Correo o contraseña incorrectos.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión con el servidor.');
+            }
+        });
+    </script>
+</body>
+</html>
