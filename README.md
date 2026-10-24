@@ -88,3 +88,12 @@ https://www.instagram.com/comunidadcientificachile/
 - server.js: servidor y conexión con PostgreSQL.
 - styles.css: estilos de la página.
 - api-config.js: URL del backend publicado.
+
+## Integrantes y contribuciones
+
+- [iTobal / Cristóbal Jaramillo]: coordinación general, configuración del proyecto y publicación en GitHub, Netlify y Render.
+- [iD00M / Jordan Padilla]: desarrollo de la sección Ciencia Accesible.
+- [ThatOneDusde / Ignacio Contreras]: mejoras visuales y estilos.
+- [Javierbr35 / Javier Bertiola]: correcciones y pruebas.
+- [cristiangzc-afk/ Cristian Zuñiga]: documentación del proyecto.
+##
