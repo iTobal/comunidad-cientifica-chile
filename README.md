@@ -43,11 +43,17 @@ http://localhost:3000
 El proyecto utiliza PostgreSQL. Para una conexión local se debe crear un archivo llamado .env con la siguiente configuración:
 
 PORT=3000
+
 DB_HOST=localhost
+
 DB_PORT=5432
+
 DB_USER=postgres
+
 DB_PASSWORD=TU_CONTRASEÑA
+
 DB_NAME=comunidad_cientifica_db
+
 JWT_SECRET=UNA_CLAVE_SEGURA
 
 El archivo .env no debe subirse a GitHub porque contiene información privada.
