@@ -88,3 +88,22 @@ https://www.instagram.com/comunidadcientificachile/
 - server.js: servidor y conexión con PostgreSQL.
 - styles.css: estilos de la página.
 - api-config.js: URL del backend publicado.
+
+- ## Estructura del Proyecto
+
+```text
+comunidad-cientifica-chile/
+├── admin.html             # Vista del panel de administración
+├── api-config.js          # Configuración de URLs para consumo de la API backend
+├── app.js                 # Lógica interactiva e integración con el backend (Frontend)
+├── cambiar-password.html  # Vista para la actualización de contraseña
+├── index.html             # Página principal y formulario de solicitud de registro
+├── login.html             # Vista de inicio de sesión de usuarios
+├── netlify.toml           # Configuración de despliegue para Netlify (Frontend)
+├── package-lock.json      # Bloqueo de versiones exactas de dependencias
+├── package.json           # Configuración de scripts y dependencias de Node.js
+├── perfil.html            # Vista del perfil de usuario autenticado
+├── README.md              # Documentación principal del repositorio
+├── render.yaml            # Configuración de despliegue para Render (Backend)
+├── server.js              # Servidor Node.js / Express y conexión a PostgreSQL
+└── styles.css             # Estilos globales de la aplicación
