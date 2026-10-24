@@ -1,103 +1,84 @@
 # Comunidad Científica de Chile
 
-Proyecto web base para la Comunidad Científica de Chile. Esta versión mantiene el frontend existente en HTML/CSS/JavaScript y el backend en Node.js/Express conectado a PostgreSQL.
+Página web desarrollada para la Comunidad Científica de Chile como parte del proyecto de Desarrollo Full Stack.
 
-## Requisitos en Windows
+La página permite mostrar información de la comunidad, registrar usuarios y administrar solicitudes desde un panel de administración.
 
-- Node.js instalado
-- PostgreSQL instalado
-- pgAdmin4
+## Tecnologías utilizadas
 
-## 1. Crear la base de datos en pgAdmin4
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- Express
+- PostgreSQL
 
-1. Abre pgAdmin4 y conéctate a tu servidor local.
-2. Abre `crear_bd_pgadmin.sql` en el Query Tool.
-3. Ejecuta el script.
-4. La base debe llamarse `comunidad_cientifica_db`.
+## Funcionalidades
 
-## 2. Configurar la conexión
+- Página principal de la Comunidad Científica de Chile.
+- Formulario para solicitar registro.
+- Inicio de sesión de usuarios.
+- Panel de administración.
+- Aprobación y eliminación de solicitudes.
+- Administración de usuarios.
+- Cambio de contraseña.
+- Enlace al Instagram oficial.
+- Persistencia de datos en PostgreSQL.
 
-1. Copia `.env.example` y renómbralo como `.env`.
-2. Abre `.env`.
-3. Escribe la contraseña de tu usuario `postgres` en `DB_PASSWORD`.
-4. No subas `.env` a GitHub.
+## Ejecutar el proyecto
 
-Ejemplo:
+Para ejecutar el proyecto en un computador se necesita tener instalado Node.js, PostgreSQL y npm.
 
-```env
+Luego, dentro de la carpeta del proyecto, ejecutar:
+
+npm install
+npm start
+
+La página quedará disponible en:
+
+http://localhost:3000
+
+## Configuración de la base de datos
+
+El proyecto utiliza PostgreSQL. Para una conexión local se debe crear un archivo llamado .env con la siguiente configuración:
+
 PORT=3000
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
-DB_PASSWORD=TU_CLAVE
+DB_PASSWORD=TU_CONTRASEÑA
 DB_NAME=comunidad_cientifica_db
-JWT_SECRET=una-clave-larga-y-segura
-```
+JWT_SECRET=UNA_CLAVE_SEGURA
 
-## Publicación en la nube: GitHub + Netlify + Render + Neon
+El archivo .env no debe subirse a GitHub porque contiene información privada.
 
-Este mismo repositorio se puede conectar a dos servicios: Netlify publica los archivos HTML/CSS/JavaScript y Render ejecuta `server.js`. La base PostgreSQL se crea en Neon. No es necesario mantener el computador encendido.
+## Publicación del proyecto
 
-### Neon
+El código está almacenado en GitHub.
 
-Crea un proyecto PostgreSQL en Neon y copia la cadena completa de conexión.
+El frontend está publicado en Netlify:
 
-### Render
+https://roaring-horse-1b3c2b.netlify.app
 
-Conecta el repositorio de GitHub como Web Service. Usa:
+El backend está publicado en Render:
 
-- Build command: `npm install`
-- Start command: `npm start`
-- Plan: Free
+https://comunidad-cientifica-chile.onrender.com
 
-En Environment Variables agrega `DATABASE_URL` con la cadena completa de Neon, incluyendo `?sslmode=require`. Render también puede generar `JWT_SECRET` automáticamente.
-
-### Netlify
-
-Conecta el mismo repositorio como sitio. Publish directory: `.`. Antes del deploy, edita `api-config.js` y reemplaza el valor vacío por la URL pública de Render:
-
-```js
-window.API_BASE_URL = 'https://TU-SERVICIO.onrender.com';
-```
-
-Después de guardar y subir el cambio a GitHub, Netlify volverá a publicar el frontend automáticamente.
-
-## Conexión local opcional con Neon
-
-Para publicar sin depender de tu computador, no subas `.env` a GitHub. En Render crea una variable privada llamada `DATABASE_URL` y pega allí la cadena completa que entrega Neon, incluyendo `?sslmode=require`. Si `DATABASE_URL` existe, el servidor la usará automáticamente con SSL. Si no existe, usará las variables locales de la sección anterior.
-
-
-
-Para publicar sin depender de tu computador, no subas `.env` a GitHub. En Render crea una variable privada llamada `DATABASE_URL` y pega allí la cadena completa que entrega Neon, incluyendo `?sslmode=require`. Si `DATABASE_URL` existe, el servidor la usará automáticamente con SSL. Si no existe, usará las variables locales de la sección anterior.
-
-## 3. Instalar y ejecutar
-
-Abre PowerShell dentro de esta carpeta y ejecuta:
-
-```powershell
-npm install
-npm start
-```
-
-Luego abre:
-
-```text
-http://localhost:3000
-```
-
-El servidor crea automáticamente las tablas `solicitudes` y `usuarios` al iniciar.
-
-## Usuario administrador inicial
-
-- Correo: `admin@correo.com`
-- Clave temporal inicial: `0206`
-
-Cámbiala antes de publicar el sistema.
+La base de datos PostgreSQL utilizada para la versión publicada está alojada en Neon.
 
 ## Instagram
 
-Perfil oficial: https://www.instagram.com/comunidadcientificachile/
+Perfil oficial:
 
-## Importante
+https://www.instagram.com/comunidadcientificachile/
 
-Este ZIP es una base funcional para conectarte a pgAdmin4. La pauta EPE2 solicita posteriormente Angular y Django; no debes presentar esta versión como cumplimiento completo de esos dos requisitos sin hacer esa migración.
+## Estructura principal
+
+- index.html: página principal.
+- login.html: inicio de sesión.
+- admin.html: panel de administración.
+- perfil.html: perfil de usuario.
+- cambiar-password.html: cambio de contraseña.
+- server.js: servidor y conexión con PostgreSQL.
+- styles.css: estilos de la página.
+- api-config.js: URL del backend publicado.
