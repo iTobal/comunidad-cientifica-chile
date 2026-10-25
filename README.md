@@ -116,3 +116,15 @@ comunidad-cientifica-chile/
 - [Javierbr35 / Javier Bertiola]: correcciones y pruebas.
 - [cristiangzc-afk/ Cristian Zuñiga]: documentación del proyecto.
 ##
+
+## Pruebas realizadas
+
+- Se comprobó que la página principal cargue correctamente.
+- Se probó el formulario de registro.
+- Se probó el inicio de sesión.
+- Se revisó el panel de administración.
+- Se comprobó la conexión con PostgreSQL.
+- Se verificó la publicación del frontend en Netlify.
+- Se verificó el funcionamiento del backend en Render.
+- Se revisó el enlace al Instagram oficial.
+##
