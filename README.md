@@ -119,12 +119,24 @@ comunidad-cientifica-chile/
 
 ## Pruebas realizadas
 
+**Funcionalidad base y Despliegue**
 - Se comprobó que la página principal cargue correctamente.
-- Se probó el formulario de registro.
-- Se probó el inicio de sesión.
-- Se revisó el panel de administración.
-- Se comprobó la conexión con PostgreSQL.
-- Se verificó la publicación del frontend en Netlify.
-- Se verificó el funcionamiento del backend en Render.
-- Se revisó el enlace al Instagram oficial.
-##
+- Se verificó la publicación del frontend en Netlify y backend en Render.
+- Se comprobó la conexión estable con la base de datos PostgreSQL en Neon.
+- Se revisó la correcta redirección al Instagram oficial.
+
+**Autenticación y Seguridad**
+- Se probó el formulario de registro y la validación de campos obligatorios.
+- Se probó el inicio de sesión y el manejo de credenciales incorrectas.
+- Se verificó la protección de rutas (redirección de usuarios no autenticados intentando acceder a perfil o admin).
+- Se probó exitosamente el flujo de cambio de contraseña.
+- Se comprobó la comunicación CORS entre Netlify y Render.
+
+**Panel de Administración**
+- Se revisó el acceso exclusivo para administradores al panel.
+- Se validó el flujo de aprobación y rechazo de solicitudes de ingreso.
+- Se probó la funcionalidad de visualización y eliminación de usuarios existentes.
+
+**Interfaz y Experiencia de Usuario (UI/UX)**
+- Se verificó la adaptabilidad de la página en dispositivos móviles (Diseño Responsivo).
+- Se comprobó que se muestren mensajes de alerta y confirmación ante las acciones del usuario.
