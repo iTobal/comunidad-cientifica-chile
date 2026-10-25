@@ -107,3 +107,12 @@ comunidad-cientifica-chile/
 ├── render.yaml            # Configuración de despliegue para Render (Backend)
 ├── server.js              # Servidor Node.js / Express y conexión a PostgreSQL
 └── styles.css             # Estilos globales de la aplicación
+
+## Integrantes y contribuciones
+
+- [iTobal / Cristóbal Jaramillo]: coordinación general, configuración del proyecto y publicación en GitHub, Netlify y Render.
+- [iD00M / Jordan Padilla]: desarrollo de la sección Ciencia Accesible.
+- [ThatOneDusde / Ignacio Contreras]: mejoras visuales y estilos.
+- [Javierbr35 / Javier Bertiola]: correcciones y pruebas.
+- [cristiangzc-afk/ Cristian Zuñiga]: documentación del proyecto.
+##
