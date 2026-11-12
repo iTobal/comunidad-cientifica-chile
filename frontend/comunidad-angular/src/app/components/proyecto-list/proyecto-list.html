@@ -1,0 +1,28 @@
+<section class="proyectos">
+  <header class="proyectos__encabezado">
+    <p class="eyebrow">INVESTIGACIÓN CIENTÍFICA</p>
+
+    <h2>Proyectos de investigación</h2>
+
+    <p>
+      Explora los proyectos que forman parte de la Comunidad Científica de Chile.
+    </p>
+  </header>
+
+  <div class="proyectos__grid">
+    @for (proyecto of proyectos; track proyecto.id) {
+      <app-proyecto-card
+        [proyecto]="proyecto"
+        [seleccionado]="proyectoSeleccionadoId === proyecto.id"
+        (seleccionar)="seleccionarProyecto($event)"
+      ></app-proyecto-card>
+    }
+  </div>
+
+  @if (proyectoSeleccionado) {
+    <aside class="proyecto-seleccionado">
+      <strong>Proyecto seleccionado:</strong>
+      {{ proyectoSeleccionado.titulo }}
+    </aside>
+  }
+</section>

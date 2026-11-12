@@ -1,0 +1,43 @@
+.proyectos {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  color: #f8fafc;
+}
+
+.proyectos__encabezado {
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0.5rem 0;
+    font-size: 2.2rem;
+  }
+
+  p:not(.eyebrow) {
+    color: #cbd5e1;
+    max-width: 650px;
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: #a78bfa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15rem;
+}
+
+.proyectos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.proyecto-seleccionado {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-left: 4px solid #22d3ee;
+  border-radius: 0.5rem;
+  background: #172033;
+  color: #e0f2fe;
+}

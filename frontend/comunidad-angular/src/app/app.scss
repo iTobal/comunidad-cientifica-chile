@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% 0%, #123342 0, transparent 30%),
+    radial-gradient(circle at 10% 10%, #211642 0, transparent 30%),
+    #080914;
+  color: #f8fafc;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  min-height: 100vh;
+}

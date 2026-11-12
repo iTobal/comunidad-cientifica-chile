@@ -1,0 +1,23 @@
+.proyecto-card {
+  padding: 1.25rem;
+  border: 2px solid #27324a;
+  border-radius: 0.75rem;
+  background: #111827;
+  color: #f8fafc;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &.seleccionado {
+    border-color: #22d3ee;
+    background: #172554;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.35);
+  }
+}
+
+.mensaje-seleccionado {
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  background: #164e63;
+  color: #cffafe;
+  font-weight: bold;
+}

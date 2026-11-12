@@ -1,0 +1,40 @@
+<article
+  class="proyecto-card"
+  [class.seleccionado]="seleccionado"
+>
+  <div class="proyecto-card__encabezado">
+    <span class="proyecto-card__estado">
+      {{ proyecto.estado }}
+    </span>
+
+    <span class="proyecto-card__area">
+      {{ proyecto.area_cientifica }}
+    </span>
+  </div>
+
+  <h3>{{ proyecto.titulo }}</h3>
+
+  <p>
+    Responsable:
+    <strong>{{ proyecto.investigador_responsable }}</strong>
+  </p>
+
+  <p>
+    Publicaciones:
+    <strong>{{ proyecto.cantidad_publicaciones }}</strong>
+  </p>
+
+  <button
+    type="button"
+    [attr.aria-pressed]="seleccionado"
+    (click)="seleccionarProyecto()"
+  >
+    {{ seleccionado ? 'Proyecto seleccionado' : 'Seleccionar proyecto' }}
+  </button>
+
+  @if (seleccionado) {
+    <p class="mensaje-seleccionado">
+      Este proyecto está seleccionado.
+    </p>
+  }
+</article>
