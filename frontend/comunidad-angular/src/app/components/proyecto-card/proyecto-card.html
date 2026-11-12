@@ -29,12 +29,6 @@
     [attr.aria-pressed]="seleccionado"
     (click)="seleccionarProyecto()"
   >
-    {{ seleccionado ? 'Proyecto seleccionado' : 'Seleccionar proyecto' }}
+    {{ seleccionado ? 'Quitar selección' : 'Seleccionar proyecto' }}
   </button>
-
-  @if (seleccionado) {
-    <p class="mensaje-seleccionado">
-      Este proyecto está seleccionado.
-    </p>
-  }
 </article>

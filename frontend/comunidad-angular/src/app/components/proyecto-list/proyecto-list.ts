@@ -33,8 +33,14 @@ export class ProyectoList {
   proyectoSeleccionadoId: number | null = null;
 
   seleccionarProyecto(id: number): void {
-    this.proyectoSeleccionadoId = id;
+  if (this.proyectoSeleccionadoId === id) {
+    this.proyectoSeleccionadoId = null;
+    return;
   }
+
+  this.proyectoSeleccionadoId = id;
+  }
+
 
   get proyectoSeleccionado(): Proyecto | null {
     return (
