@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from cientifica.views import resumen_cientifico
+from cientifica.views import resumen_cientifico, listar_proyectos
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("cientifica/resumen/", resumen_cientifico, name="resumen-cientifico"),
+    path("api/proyectos/", listar_proyectos, name="listar-proyectos"),
 ]

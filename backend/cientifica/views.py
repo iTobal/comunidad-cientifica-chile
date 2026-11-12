@@ -35,3 +35,25 @@ def resumen_cientifico(request):
 
     return JsonResponse(datos)
 
+def listar_proyectos(request):
+    proyectos = (
+        ProyectoInvestigacion.objects
+        .filter(activo=True)
+        .select_related("investigador_responsable")
+    )
+
+    datos = [
+        {
+            "id": proyecto.id,
+            "titulo": proyecto.titulo,
+            "area_cientifica": proyecto.area_cientifica,
+            "estado": proyecto.get_estado_display(),
+            "investigador_responsable": (
+                proyecto.investigador_responsable.nombre_completo
+            ),
+            "cantidad_publicaciones": proyecto.publicaciones.count(),
+        }
+        for proyecto in proyectos
+    ]
+
+    return JsonResponse(datos, safe=False)
