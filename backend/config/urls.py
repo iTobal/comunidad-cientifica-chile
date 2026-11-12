@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from cientifica.views import resumen_cientifico
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("cientifica/resumen/", resumen_cientifico, name="resumen-cientifico"),
 ]
